@@ -14,15 +14,15 @@ CADdocname = "PrandtlWing"
 App.newDocument(CADdocname)
 
 fulltwist = [8.3274,8.5524,8.7259,8.8441,8.903,8.8984,8.8257,8.6801,8.4565,8.1492,7.7522,7.2592,6.6634,5.9579,5.1362,4.1927,3.1253,1.9394,0.6589,-0.6417,-1.6726]
-twist = [-fulltwist[0], -fulltwist[-1]]
+twist = [-fulltwist[0], fulltwist[10], -fulltwist[-1]]
 
 #pathsectionfiles = u"F:/PrandtlVlerk/P4/PrandtlWingFullScale/CAD/"
 pathsectionfiles = u"/media/asenna/WitkruisArend/PrandtlVlerk/P2/prandtl2/CAD/"
 
-sectionfiles = ['PRNCENMOD.dat', 'PRNTIPMOD.dat']
+sectionfiles = ['PRNCENMOD.dat', 'section_10.dat', 'PRNTIPMOD.dat']
 
 b = 2.25 # Span in metres
-spanrange = list(range(0,2))
+spanrange = list(range(0,3))
 spanrange = [(b/2)*spanpos*1000 for spanpos in spanrange]
 
 sweepangle = 24*math.pi/180 # [radians]
@@ -32,7 +32,7 @@ sweeprange = [math.tan(sweepangle)*spanpos for spanpos in spanrange]
 rootchord = 240 # [mm]
 tipchord = 60 # [mm]
 
-chordrange = [rootchord, tipchord]
+chordrange = [rootchord, (rootchord+tipchord)/2, tipchord]
 
 # Remember to add the dihedral angle
 # Add the dihedral angle last to prevent parallellogram of wing.
@@ -43,7 +43,7 @@ chordrange = [rootchord, tipchord]
 
 App.activeDocument().addObject('PartDesign::Body','Body')
 
-for cstation in range(0,2):
+for cstation in range(0,3):
 	# First import the 2D section
 	importAirfoilDAT.insert(pathsectionfiles + sectionfiles[cstation], CADdocname)
 
